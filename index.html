@@ -8,17 +8,18 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <div id="example">
-      {{ message }}
-      {{ reversedMessage }}
-      <input v-model="name" />
       <p>
-        <div>
-          First Name: {{ firstName }}
-        </div>
-        <div>
-          Last Name: {{ lastName }}
-        </div>
+        <ul v-for="(name, index) in names">
+          <li>
+            {{ index + '-' + name }}
+          </li>
+        </ul>
       </p>
+      <template v-for="(person, index) in people">
+        <div>
+          {{ person.name + '-' + person.age }}
+        </div>
+      </template>
 
     </div>
 
@@ -26,26 +27,39 @@
     <script>
       let vm = new Vue({
         el: '#example',
-
         data: {
-          message: 'Hello',
-          firstName: '',
-          lastName: '',
+          names: [
+            'Putin',
+            'Jack Sparrow',
+            'Black pearl',
+            'Taylor Swift',
+          ],
+          people: [
+            {name: 'james nguyen', age: 18},
+            {name: 'Enemy Frank', age: 26},
+            {name: 'Balak Obama', age: 54},
+            {name: 'Despacito Lanno', age: 12},
+            {name: 'Breath becomes Air', age: 6},
+          ],
         },
 
         computed: {
-          reversedMessage: function() {
-            return this.message.split('').reverse().join('');
+          evenNames: function() {
+            return this.names.filter(function(value, index) {
+              return (index % 2 == 0);
+            })
           },
-          name: {
-            // get: function() {
-            //   return this.firstName + ' ' + this.lastName;
-            // },
-            set: function(newVal) {
-              const nameArray = newVal.split(' ');
-              this.firstName = nameArray[0] || '';
-              this.lastName = nameArray[1] || '';
-            }
+
+          ageGreaterThanTenPeople: function() {
+            return this.people.filter(function(value, index) {
+              return (value.age > 10);
+            });
+          },
+        },
+
+        methods: {
+          validatePerson(person) {
+            return person.age > 10;
           }
         }
       });
