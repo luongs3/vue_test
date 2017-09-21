@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>vue_test</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <div id="example">
+      {{ message }}
+      {{ reversedMessage }}
+      <input v-model="name" />
+      <p>
+        <div>
+          First Name: {{ firstName }}
+        </div>
+        <div>
+          Last Name: {{ lastName }}
+        </div>
+      </p>
+
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      let vm = new Vue({
+        el: '#example',
+
+        data: {
+          message: 'Hello',
+          firstName: '',
+          lastName: '',
+        },
+
+        computed: {
+          reversedMessage: function() {
+            return this.message.split('').reverse().join('');
+          },
+          name: {
+            // get: function() {
+            //   return this.firstName + ' ' + this.lastName;
+            // },
+            set: function(newVal) {
+              const nameArray = newVal.split(' ');
+              this.firstName = nameArray[0] || '';
+              this.lastName = nameArray[1] || '';
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
