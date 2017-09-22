@@ -8,19 +8,10 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <div id="example">
-      <p>
-        <ul v-for="(name, index) in names">
-          <li>
-            {{ index + '-' + name }}
-          </li>
-        </ul>
-      </p>
-      <template v-for="(person, index) in people">
-        <div>
-          {{ person.name + '-' + person.age }}
-        </div>
-      </template>
-
+      <button @click="increaseCounter">Click To Increase</button>
+      <div>
+        {{ counter }}
+      </div>
     </div>
 
     <script src="https://unpkg.com/vue"></script>
@@ -28,39 +19,13 @@
       let vm = new Vue({
         el: '#example',
         data: {
-          names: [
-            'Putin',
-            'Jack Sparrow',
-            'Black pearl',
-            'Taylor Swift',
-          ],
-          people: [
-            {name: 'james nguyen', age: 18},
-            {name: 'Enemy Frank', age: 26},
-            {name: 'Balak Obama', age: 54},
-            {name: 'Despacito Lanno', age: 12},
-            {name: 'Breath becomes Air', age: 6},
-          ],
-        },
-
-        computed: {
-          evenNames: function() {
-            return this.names.filter(function(value, index) {
-              return (index % 2 == 0);
-            })
-          },
-
-          ageGreaterThanTenPeople: function() {
-            return this.people.filter(function(value, index) {
-              return (value.age > 10);
-            });
-          },
+          counter: 0
         },
 
         methods: {
-          validatePerson(person) {
-            return person.age > 10;
-          }
+          increaseCounter() {
+            this.counter++;
+          },
         }
       });
     </script>
